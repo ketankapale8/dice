@@ -4,7 +4,7 @@ import Home from './components/Home/Home';
 
 function App() {
   return (
-    <div className='w-full h-screen '>
+    <div >
     <Header/>
     <Home/>
     </div>

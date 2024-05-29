@@ -1,14 +1,45 @@
 
-const ProfileContainer = () => {
+const ProfileContainer = ({users}) => {
+  
+    // console.log(users?.items?.sort((a,b) => (a.stargazers_count - b.stargazers_count)))
+
   return (
-    <div className="grid grid-cols-3 grid-flow-col">
-
-                <div className="flex flex-col gap-2 ">
+      <div className="px-20 py-20  grid grid-cols-3  grid-flow-row gap-4 overflow-auto ">
+    {users && users?.items?.length > 0 ? (
+          users?.items?.map((item) => {
+            return (
+            <div key={item.id} className="flex flex-col gap-4 px-4 w-[20vw] h-[40vh] pt-5 pb-5 text-sm  rounded-md bg-white ">
+                <img className="w-[60px] h-[60px] mx-[40%]  bg-cover rounded-md" src={item.owner.avatar_url}/>
+                <div className="flex gap-1">
+                  <h4 >Name:</h4>
+                {item.name}
                 </div>
-                
+                <div className="flex gap-1">
+                  <h4 >Stars:</h4>
+                {item.stargazers_count}
+                </div>
+                <div className="flex gap-1">
+                  <h4 >Description:</h4>
+                {item?.description?.length > 50 ? item?.description?.slice(0,40).concat("...") : item.description}
+                </div>
+                <div className="flex gap-1">
+                  <h4 >Language:</h4>
+                {item.language == null  ? "Not Specified" : item.language}
+                </div>
 
-      
+            </div>)
+          }
+        ) 
+    )
+   : (
+    <>
+    <div className="flex items-center justify-center">
+      <h3 className="text-3xl text-white ">Please use the above searchbar to search for Github Users</h3>
+
     </div>
+    </>
+   )}
+      </div>
   )
 }
 
