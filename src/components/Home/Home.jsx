@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
 import ProfileContainer from "../ProfileContainer/ProfileContainer"
-import { useGetUsersMutation } from "../../redux/slices/api";
 
 const Home = () => {
   const [inputchange , setInputChange ] = useState("");
@@ -8,25 +7,14 @@ const Home = () => {
   const [message , setMessage] = useState(null);
   const [sorted, setSortedArr] = useState([]);
   const [sorting , setSorting] = useState(false);
-  // const [ getUsers , { isSuccess , data }] = useGetUsersMutation();
   const [users , getUsers] = useState([])
 
 
   let baseUrl = "https://api.github.com/search/repositories?q="
 
-
-  // const handleSearch = async () => {
-  //   try{
-  //     const resp = await getUsers(inputchange).unwrap();
-  //     console.log(resp)
-
-  //   }catch(err){
-  //     console.log(err)
-  //   }
-  // }
+  // Search Function to get gituser's data //
 
   const handleSearch = async () => {
-
     try{
       setLoading(true);
       let response = await fetch(`${baseUrl}${inputchange}`);
@@ -43,7 +31,7 @@ const Home = () => {
   }
 
 
-
+// Sorting Functions with a flag based on selected sort-option //
 const handleSort = async () => {
   setSorting(true);
   console.log(users)
@@ -52,20 +40,16 @@ const handleSort = async () => {
   }else{
     let sortedArr = await users?.items?.sort((a, b)=> {
       return a.stargazers_count - b.stargazers_count
-      // if(a.stargazers_count < b.stargazers_count){
-      //   return -1
-      // }
+  
   
     })
     let sorted = await users?.items?.map(item => item.stargazers_count).sort()
     
-    // return sortedArr  
     setSortedArr(sortedArr)
 
   }
-  //  return getUsers(sortedArr)
 }
-
+// Loader //
   if(loading){
     return (
       <div className="flex justify-center absolute  items-center  ">
@@ -73,6 +57,7 @@ const handleSort = async () => {
       </div>
     )
   }
+// Error //
   if(message){
     return (
       <div className="flex items-center ">
@@ -80,11 +65,6 @@ const handleSort = async () => {
       </div>
     )
   }
-
-
-  
-
-
 
   return (
     <div className="w-full h-auto bg-slate-900  ">
@@ -104,7 +84,9 @@ const handleSort = async () => {
           >Refresh</button>
           {/* <Filter /> */}
       </h4>
+      
         <div className="w-full px-20 py-4 ">
+            {/* Users Flagged based on Sort Selector */}
             <ProfileContainer users={setSorting == true ? sorted :  users}/>
 
         </div>
