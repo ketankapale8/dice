@@ -85,7 +85,7 @@ const handleSort = async () => {
           {/* <Filter /> */}
       </h4>
       
-        <div className="w-full px-20 py-4 ">
+        <div className="w-full h-auto px-24">
             {/* Users Flagged based on Sort Selector */}
             <ProfileContainer users={setSorting == true ? sorted :  users}/>
 

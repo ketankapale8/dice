@@ -11,19 +11,19 @@ const ProfileContainer = ({users}) => {
             <div key={item.id} className="flex flex-col gap-4 px-4 w-[20vw] h-[40vh] pt-5 pb-5 text-sm  rounded-md bg-white ">
                 <img className="w-[60px] h-[60px] mx-[40%]  bg-cover rounded-md" src={item.owner.avatar_url}/>
                 <div className="flex gap-1">
-                  <h4 >Name:</h4>
+                  <h4   className="font-medium ">Name:</h4>
                 {item.name}
                 </div>
                 <div className="flex gap-1">
-                  <h4 >Stars:</h4>
+                  <h4  className="font-medium " >Stars:</h4>
                 {item.stargazers_count}
                 </div>
                 <div className="flex gap-1">
-                  <h4 >Description:</h4>
-                {item?.description?.length > 50 ? item?.description?.slice(0,40).concat("...") : item.description}
+                  <h4  className="font-medium " >Description:</h4>
+                {item.description == null ? "Not Specified" : item?.description?.length > 50 ? item?.description?.slice(0,40).concat("...") : item.description}
                 </div>
                 <div className="flex gap-1">
-                  <h4 >Language:</h4>
+                  <h4   className="font-medium ">Language:</h4>
                 {item.language == null  ? "Not Specified" : item.language}
                 </div>
 
@@ -31,15 +31,17 @@ const ProfileContainer = ({users}) => {
           }
         ) 
     )
-   : (
-    <>
-    <div className="flex items-center justify-center">
-      <h3 className="text-3xl text-white ">Please use the above searchbar to search for Github Users</h3>
+    : (
+      <>
+          <div className="w-full h-[60vh] ">
+              <h3 className="text-3xl text-white ">Please use the above searchbar to search for Github Users</h3>
 
-    </div>
+            </div>
     </>
-   )}
-      </div>
+   )
+   }
+   </div>
+   
   )
 }
 
