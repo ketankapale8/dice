@@ -6,7 +6,7 @@ UI Framework Used:
 - Vite + React (UI)
 - Tailwind CSS (css)
 - Toastify - Alert/Error Handling for blank spaces
-- Netlify to hosting the entire app.
+- Netlify to hosting the entire app (https://githubusersearchfordice.netlify.app/).
   
  For Future enhancements:
 - React Redux for global State management (Redux Persist for storing previously searched data)
