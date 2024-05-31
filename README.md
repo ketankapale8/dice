@@ -1,9 +1,15 @@
-# React + Vite
+# Github Profile Finder # - By Ketan.k 
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This template provides a setup to find , filter and search github users.
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+UI Framework Used:
+- Vite + React (UI)
+- Tailwind CSS (css)
+- Toastify - Alert/Error Handling for blank spaces
+- Netlify to hosting the entire app.
+  
+ For Future enhancements:
+- React Redux for global State management (Redux Persist for storing previously searched data)
+- React Router DOM (for multiple pages and routes)
+- JSON Webtokens and MongoDB with Express for converting this into a FullStack Application. 
 "# dice" 
