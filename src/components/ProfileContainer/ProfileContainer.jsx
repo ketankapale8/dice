@@ -1,6 +1,5 @@
 
 const ProfileContainer = ({users ,message}) => {
-  console.log(users)
   
     // console.log(users?.items?.sort((a,b) => (a.stargazers_count - b.stargazers_count)))
 

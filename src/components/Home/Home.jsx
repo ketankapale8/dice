@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import ProfileContainer from "../ProfileContainer/ProfileContainer";
 import { toast } from "react-toastify";
 
@@ -30,14 +30,20 @@ const Home = () => {
 
   const handleSearch = async () => {
     try{
-      setLoading(true);
-      let response = await fetch(`${baseUrl}${inputchange}`);
-      let data = await response.json();
-        if(data){
-          setLoading(false)
-          setSorting(false)
-          getUsers(data)
-        }
+      if(inputchange.length == 0){
+    toast("Please add data in the search field before sorting it")
+
+      }else{
+        setLoading(true);
+        let response = await fetch(`${baseUrl}${inputchange}`);
+        let data = await response.json();
+          if(data){
+            setLoading(false)
+            setSorting(false)
+            getUsers(data)
+          }
+
+      }
     }catch(err){
       setMessage(err.message)
       console.log(err)
@@ -117,6 +123,8 @@ const ToggleWatchersCount = async () => {
   }
 }
 
+
+// Name Filter //
 const FilterName = async () => {
   setSorting(false);
   if(users.length == 0){
@@ -198,6 +206,7 @@ const toggleScore = async () => {
   }
 }
 
+// CreatedAt Filter //
 const createdAtLowhighFilter = async () => {
   setSorting(false);
   if(users.length == 0){
@@ -236,7 +245,45 @@ const HandlecreatedAtLowhighFilter = async () => {
   }
 }
 
+// UpdatedAt  Filter //
 
+const updatedAtLowhighFilter = async () => {
+  setSorting(false);
+  if(users.length == 0){
+    toast("Please add data in the search field before sorting it")
+  }else{
+
+    let sortedArr = await users?.items?.sort((a,b)=> {
+      var firstDate = formatter.format(Date.parse(a.updated_at))
+      var secondDate = formatter.format(Date.parse(b.updated_at))
+      if(firstDate > secondDate ){ return -1; }
+
+    })
+    
+    
+    setSortedArr(sortedArr)
+
+  }
+}
+
+const HandleupdatedAtLowhighFilter = async () => {
+  setSorting(true);
+  if(users.length == 0){
+    toast("Please add data in the search field before sorting it")
+  }else{
+
+    let sortedArr = await users?.items?.sort((a,b)=> {
+      var firstDate = formatter.format(Date.parse(a.updated_at))
+      var secondDate = formatter.format(Date.parse(b.updated_at))
+      if(firstDate < secondDate ){ return -1; }
+
+    })
+    
+    
+    setSortedArr(sortedArr)
+
+  }
+}
 
 // Loader //
   if(loading){
@@ -246,6 +293,8 @@ const HandlecreatedAtLowhighFilter = async () => {
       </div>
     )
   }
+
+
 // Error //
   if(message){
     return (
@@ -277,6 +326,7 @@ const HandlecreatedAtLowhighFilter = async () => {
             }
           >Refresh</button>
 
+{/* Filters  */}
 <div className="relative inline-block text-left">
   <div>
     <button type="button" onClick={()=>setDefaultOption(!defaultOption)} className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" id="menu-button" aria-expanded="false" aria-haspopup="true">
@@ -299,17 +349,12 @@ const HandlecreatedAtLowhighFilter = async () => {
       <a href="#" className="text-gray-700 block px-4 py-2 text-sm" role="menuitem"  id="menu-item-7" onClick={()=>FilterName()}>Sort Name [Z-A] </a>
       <a href="#" className="text-gray-700 block px-4 py-2 text-sm" role="menuitem"  id="menu-item-8" onClick={()=>createdAtLowhighFilter()}>Sort CreatedAt [A-Z] </a>
       <a href="#" className="text-gray-700 block px-4 py-2 text-sm" role="menuitem"  id="menu-item-9" onClick={()=>HandlecreatedAtLowhighFilter()}>Sort CreatedAt [Z-A] </a>
-
-
-
-
-
-     
+      <a href="#" className="text-gray-700 block px-4 py-2 text-sm" role="menuitem"  id="menu-item-8" onClick={()=>updatedAtLowhighFilter()}>Sort UpdatedAt [A-Z] </a>
+      <a href="#" className="text-gray-700 block px-4 py-2 text-sm" role="menuitem"  id="menu-item-9" onClick={()=>HandleupdatedAtLowhighFilter()}>Sort UpdatedAt [Z-A] </a>
     </div>
   </div>
 )}
 </div>
-          {/* <Filter /> */}
       </h4>
       
         <div className="w-full h-auto px-24">
